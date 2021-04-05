@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const apiRoutes = require('./api');
+const apiRoutes = require('./api/values/valuesRoutes');
 
 router.get('/', async (req, res) => {
     try {
@@ -10,6 +10,6 @@ router.get('/', async (req, res) => {
     }
   });
   
-router.use('/api', apiRoutes);
+router.use('/values', apiRoutes);
 
 module.exports = router;
