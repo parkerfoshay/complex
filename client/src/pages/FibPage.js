@@ -33,7 +33,7 @@ export default class FibPage extends Component {
     this.setState({ index: "" });
   };
   renderSeenIndexes() {
-    return this.seenIndexes.map(({ number }) => number).join(", ");
+    return this.state.seenIndexes.map(({ number }) => number).join(", ");
   }
   renderValues() {
     const entries = [];
