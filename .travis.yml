@@ -1,0 +1,21 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t parkerfaucher/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true parkerfaucher/react-test npm test
+
+after_sucess:
+  - docker build -t parkerfaucher/multi-client ./client
+  - docker build -t parkerfaucher/multi-nginx ./nginx
+  - docker build -t parkerfaucher/multi-server ./server
+  - docker build -t parkerfaucher/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push parkerfaucher/multi-client
+  - docker push parkerfaucher/multi-nginx
+  - docker push parkerfaucher/multi-server
+  - docker push parkerfaucher/multi-worker
